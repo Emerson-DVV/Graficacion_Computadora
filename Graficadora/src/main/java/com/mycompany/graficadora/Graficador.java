@@ -20,7 +20,7 @@ public class Graficador {
         graficos = (Graphics2D)panel.getGraphics();
     }
     
-    public void Griya(){
+    public void Grilla(){
         //graficos.clearRect(0, 0, width, height);
         
         for (int x = 0; x < width; x += escala) {
