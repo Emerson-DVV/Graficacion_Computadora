@@ -4,19 +4,18 @@ package com.mycompany.graficadora;
  *
  * @author Emer
  */
+import java.util.ArrayList;
 public class Graphics extends javax.swing.JFrame {
 
     /**
      * Creates new form Graphics
      */
-     private Graficador g1,g2,g3;
-   
+    private DrawFrameShape g1;
+     
     public Graphics() {
         initComponents();
         this.setLocationRelativeTo(null); // Para centrar el frame
-        g1 = new Graficador(this.jPanel1);
-        g2 = new Graficador(this.jPanel2);
-        g3 = new Graficador(this.jPanel3);
+        g1 = new DrawFrameShape(this.jPanel1);
     }
 
     /**
@@ -30,17 +29,14 @@ public class Graphics extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusTraversalPolicyProvider(true);
-        setMaximumSize(new java.awt.Dimension(1255, 600));
-        setMinimumSize(new java.awt.Dimension(0, 0));
-        setPreferredSize(new java.awt.Dimension(1255, 600));
+        setMaximumSize(new java.awt.Dimension(1000, 600));
+        setPreferredSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
-        setSize(new java.awt.Dimension(1255, 600));
+        setSize(new java.awt.Dimension(1000, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setLabel("Grilla");
@@ -54,12 +50,13 @@ public class Graphics extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, 20));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.setMaximumSize(new java.awt.Dimension(400, 400));
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 400));
+        jPanel1.setEnabled(false);
+        jPanel1.setMaximumSize(new java.awt.Dimension(800, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
         jPanel1.setRequestFocusEnabled(false);
         jPanel1.setVerifyInputWhenFocusTarget(false);
 
@@ -67,64 +64,28 @@ public class Graphics extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGap(0, 796, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGap(0, 496, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.setMaximumSize(new java.awt.Dimension(400, 400));
-        jPanel2.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanel2.setRequestFocusEnabled(false);
-        jPanel2.setVerifyInputWhenFocusTarget(false);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, -1));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setMaximumSize(new java.awt.Dimension(400, 400));
-        jPanel3.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanel3.setPreferredSize(new java.awt.Dimension(400, 400));
-        jPanel3.setRequestFocusEnabled(false);
-        jPanel3.setVerifyInputWhenFocusTarget(false);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 10, -1, -1));
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 560));
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        g1.Grilla();
-        g2.Grilla();
-        g3.Grilla();
+        Punto a = new Punto(10,15);
+        Punto b = new Punto(30,15);
+        Cuadrado c = new Cuadrado(a,b);
+        ArrayList<Punto> puntos = c.listaP();
+        for (Punto pt : puntos) {
+            g1.GPunto(pt.getX(), pt.getY());
+        }
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -170,7 +131,5 @@ public class Graphics extends javax.swing.JFrame {
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
