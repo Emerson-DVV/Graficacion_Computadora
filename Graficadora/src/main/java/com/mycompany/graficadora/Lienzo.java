@@ -1,5 +1,6 @@
 package com.mycompany.graficadora;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -12,16 +13,15 @@ public class Lienzo{
     private JPanel panel;
     private int width,height,escala;
     private Graphics2D graficos;
-    private Algoritmo alg;
-    private ArrayList<Cuadrado> cuadrados;
+    private ArrayList<Figure> figuras;
+    
     public Lienzo(JPanel panel){
         this.panel = panel;
         width = panel.getWidth();
         height = panel.getHeight();
         escala = 2;
         graficos = (Graphics2D)panel.getGraphics();
-        alg = new Algoritmo();
-        cuadrados = new ArrayList<>();
+        figuras = new ArrayList<>();
     }
     
     public void Grilla(){
@@ -35,33 +35,29 @@ public class Lienzo{
         }
         
     }
-    public void aniadir(Cuadrado c){
-        cuadrados.add(c);
+    public void aniadir(Figure f){
+        figuras.add(f);
     }
     
-    public Cuadrado getCuadrado(int ID){
-        Cuadrado ans = null;
-        for (Cuadrado cuadrado : cuadrados) {
-            if(cuadrado.ID == ID){
-                ans = cuadrado;
+    public Figure getFigure(int ID){
+        Figure ans = null;
+        for (Figure figura : figuras) {
+            if(figura.ID == ID){
+                ans = figura;
             }
         }
         return ans;
     }
     public void ReDibujar(){
-        graficos.clearRect(1, 1, width-1, height-1);
-        for (Cuadrado cuadrado : cuadrados) {
-            Dibujar(cuadrado);
+        graficos.setColor(Color.WHITE);
+        graficos.fillRect(1, 1, width-1, height-1);
+        for (Figure figura : figuras) {
+            Dibujar(figura);
         }
     }
-    
-    public void Dibujar(Cuadrado c){
-        ArrayList<Punto> puntos = new ArrayList<>();
-        alg.DDA(c.v1, c.v2, puntos);
-        alg.DDA(c.v1, c.v3, puntos);
-        alg.DDA(c.v3, c.v4, puntos);
-        alg.DDA(c.v2, c.v4, puntos);
-        for (Punto punto : puntos) {
+
+    public void Dibujar(Figure f){
+        for (Punto punto : f.dibujar()) {
             GraficarPunto(punto.getX(), punto.getY());
         }
     }
@@ -71,6 +67,7 @@ public class Lienzo{
         if(xpixel == width) xpixel -= escala;
         int ypixel = (height - (y * escala))- escala;
         if(ypixel < 0) ypixel = 0;
+        graficos.setColor(Color.BLACK);
         graficos.fillRect(xpixel, ypixel, escala, escala);
     }
     
