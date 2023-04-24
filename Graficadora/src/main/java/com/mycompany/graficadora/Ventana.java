@@ -28,8 +28,10 @@ public class Ventana extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        fondo = new javax.swing.JLabel();
+        btn_triangulo = new javax.swing.JButton();
         btn_circunferencia = new javax.swing.JButton();
+        btn_Rotar = new javax.swing.JButton();
+        fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusTraversalPolicyProvider(true);
@@ -77,7 +79,7 @@ public class Ventana extends javax.swing.JFrame {
                 jButton2MouseClicked(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 520, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
 
         jButton3.setText("Escalar");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -90,8 +92,15 @@ public class Ventana extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 520, -1, -1));
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 600));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 540, -1, -1));
+
+        btn_triangulo.setText("Triangulo");
+        btn_triangulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_trianguloActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_triangulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, -1, -1));
 
         btn_circunferencia.setText("Circunferencia");
         btn_circunferencia.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,7 +113,16 @@ public class Ventana extends javax.swing.JFrame {
                 btn_circunferenciaActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_circunferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, -1, -1));
+        getContentPane().add(btn_circunferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, -1, -1));
+
+        btn_Rotar.setText("Rotar");
+        btn_Rotar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_RotarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_Rotar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 560, -1, -1));
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1000, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -144,8 +162,23 @@ public class Ventana extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         lienzo.getFigure(idActual).escalar(3);
         lienzo.ReDibujar();
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btn_trianguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_trianguloActionPerformed
+        // TODO add your handling code here:
+        idActual++;
+        Triangulo tri = new Triangulo(idActual, 20);
+        lienzo.aniadir(tri);
+        lienzo.Dibujar(tri);
+    }//GEN-LAST:event_btn_trianguloActionPerformed
+
+    private void btn_RotarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RotarActionPerformed
+
+        lienzo.getFigure(idActual).rotar(0.5);
+        lienzo.ReDibujar();
+
+    }//GEN-LAST:event_btn_RotarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -181,7 +214,9 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Rotar;
     private javax.swing.JButton btn_circunferencia;
+    private javax.swing.JButton btn_triangulo;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
