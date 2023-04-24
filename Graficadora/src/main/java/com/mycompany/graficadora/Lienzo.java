@@ -49,8 +49,8 @@ public class Lienzo{
         return ans;
     }
     public void ReDibujar(){
-        graficos.setColor(Color.WHITE);
-        graficos.fillRect(1, 1, width-1, height-1);
+        panel.removeAll();
+        panel.paint(graficos);
         for (Figure figura : figuras) {
             Dibujar(figura);
         }
