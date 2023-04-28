@@ -41,6 +41,5 @@ public class Circunferencia extends Figure {
     @Override
     public void escalar(int valor) {
         r = r + (valor); //La circunferencia solo requiere disminuir o aumentar el radio para escalarlo.
-        dibujar();
     }
 }

@@ -7,12 +7,14 @@ public class Ventana extends javax.swing.JFrame {
      */
     private Lienzo lienzo;
     private int idActual;
+    private int caso; //Variable Switch para dibujar continuo o segementado.
 
     public Ventana() {
         initComponents();
         this.setLocationRelativeTo(null); // Para centrar el frame
         lienzo = new Lienzo(this.jPanel1);
         idActual = 0;
+        caso = 0;
     }
 
     /**
@@ -32,6 +34,7 @@ public class Ventana extends javax.swing.JFrame {
         btn_circunferencia = new javax.swing.JButton();
         btn_ROTAR = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
+        bnt_dibSegmentado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusTraversalPolicyProvider(true);
@@ -124,6 +127,14 @@ public class Ventana extends javax.swing.JFrame {
         getContentPane().add(btn_ROTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 560, -1, -1));
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1000, 600));
 
+        bnt_dibSegmentado.setText("DibujarSegmentado");
+        bnt_dibSegmentado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnt_dibSegmentadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bnt_dibSegmentado, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 520, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,53 +143,60 @@ public class Ventana extends javax.swing.JFrame {
         idActual++;
         Cuadrado c = new Cuadrado(a, idActual, 10);
         lienzo.aniadir(c);
-        lienzo.Dibujar(c);
+        lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonMOVERMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMOVERMouseClicked
         lienzo.getFigure(idActual).traslacion(5, 5);
-        lienzo.ReDibujar();
+        lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jButtonMOVERMouseClicked
 
     private void jButtonESCALARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonESCALARMouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButtonESCALARMouseClicked
 
     private void btn_circunferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_circunferenciaActionPerformed
         idActual++;
         Circunferencia circ = new Circunferencia(idActual, 100, 100, 15);
         lienzo.aniadir(circ);
-        lienzo.Dibujar(circ);
+        lienzo.ReDibujar(caso);
     }//GEN-LAST:event_btn_circunferenciaActionPerformed
 
     private void btn_circunferenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_circunferenciaMouseClicked
-        //aiuda no se como borrar esto xd
+        
     }//GEN-LAST:event_btn_circunferenciaMouseClicked
 
     private void jButtonESCALARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonESCALARActionPerformed
-        lienzo.getFigure(idActual).escalar(2);
-        lienzo.ReDibujar();
-
+        lienzo.getFigure(idActual).escalar(3);
+        lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jButtonESCALARActionPerformed
 
     private void btn_trianguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_trianguloActionPerformed
-        // TODO add your handling code here:
         idActual++;
         Triangulo tri = new Triangulo(idActual, 20);
         lienzo.aniadir(tri);
-        lienzo.Dibujar(tri);
+        lienzo.ReDibujar(caso);
     }//GEN-LAST:event_btn_trianguloActionPerformed
 
     private void btn_ROTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ROTARActionPerformed
-
         lienzo.getFigure(idActual).rotar(45);
-        lienzo.ReDibujar();
-
+        lienzo.ReDibujar(caso);
     }//GEN-LAST:event_btn_ROTARActionPerformed
+
+    private void bnt_dibSegmentadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_dibSegmentadoActionPerformed
+        lienzo.DibujarSegmentado(lienzo.getFigure(idActual));
+        if(caso == 0){
+            caso++;
+            lienzo.ReDibujar(caso);
+        }else{
+            caso--;
+            lienzo.ReDibujar(caso);
+        }
+    }//GEN-LAST:event_bnt_dibSegmentadoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -214,6 +232,7 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bnt_dibSegmentado;
     private javax.swing.JButton btn_ROTAR;
     private javax.swing.JButton btn_circunferencia;
     private javax.swing.JButton btn_triangulo;

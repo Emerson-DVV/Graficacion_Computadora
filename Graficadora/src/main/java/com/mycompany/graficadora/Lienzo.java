@@ -48,16 +48,29 @@ public class Lienzo{
         }
         return ans;
     }
-    public void ReDibujar(){
+    public void ReDibujar(int caso){
         panel.removeAll();
         panel.paint(graficos);
-        for (Figure figura : figuras) {
-            Dibujar(figura);
+        if(caso == 0){
+            for (Figure figura : figuras) {
+                Dibujar(figura);
+            }
+        }else{
+            for (Figure figura : figuras) {
+                DibujarSegmentado(figura);
+            }
         }
     }
 
     public void Dibujar(Figure f){
         for (Punto punto : f.dibujar()) {
+            GraficarPunto(punto.getX(), punto.getY());
+        }
+    }
+    
+    public void DibujarSegmentado(Figure f){
+        for(int i = 0; i < f.dibujar().size(); i = i + 3){ //Valor i cantidad de puntos que se saltara para luego dibujarlos.
+            Punto punto = f.dibujar().get(i);
             GraficarPunto(punto.getX(), punto.getY());
         }
     }
