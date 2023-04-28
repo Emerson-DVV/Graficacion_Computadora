@@ -26,11 +26,11 @@ public class Ventana extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonMOVER = new javax.swing.JButton();
+        jButtonESCALAR = new javax.swing.JButton();
         btn_triangulo = new javax.swing.JButton();
         btn_circunferencia = new javax.swing.JButton();
-        btn_Rotar = new javax.swing.JButton();
+        btn_ROTAR = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,26 +73,26 @@ public class Ventana extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jButton2.setText("Mover");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonMOVER.setText("Mover");
+        jButtonMOVER.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                jButtonMOVERMouseClicked(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
+        getContentPane().add(jButtonMOVER, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
 
-        jButton3.setText("Escalar");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonESCALAR.setText("Escalar");
+        jButtonESCALAR.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                jButtonESCALARMouseClicked(evt);
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonESCALAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonESCALARActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 540, -1, -1));
+        getContentPane().add(jButtonESCALAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 540, -1, -1));
 
         btn_triangulo.setText("Triangulo");
         btn_triangulo.addActionListener(new java.awt.event.ActionListener() {
@@ -115,13 +115,13 @@ public class Ventana extends javax.swing.JFrame {
         });
         getContentPane().add(btn_circunferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, -1, -1));
 
-        btn_Rotar.setText("Rotar");
-        btn_Rotar.addActionListener(new java.awt.event.ActionListener() {
+        btn_ROTAR.setText("Rotar");
+        btn_ROTAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_RotarActionPerformed(evt);
+                btn_ROTARActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_Rotar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 560, -1, -1));
+        getContentPane().add(btn_ROTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 560, -1, -1));
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1000, 600));
 
         pack();
@@ -139,14 +139,14 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void jButtonMOVERMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMOVERMouseClicked
         lienzo.getFigure(idActual).traslacion(5, 5);
         lienzo.ReDibujar();
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jButtonMOVERMouseClicked
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void jButtonESCALARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonESCALARMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_jButtonESCALARMouseClicked
 
     private void btn_circunferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_circunferenciaActionPerformed
         idActual++;
@@ -159,11 +159,11 @@ public class Ventana extends javax.swing.JFrame {
         //aiuda no se como borrar esto xd
     }//GEN-LAST:event_btn_circunferenciaMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        lienzo.getFigure(idActual).escalar(3);
+    private void jButtonESCALARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonESCALARActionPerformed
+        lienzo.getFigure(idActual).escalar(2);
         lienzo.ReDibujar();
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonESCALARActionPerformed
 
     private void btn_trianguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_trianguloActionPerformed
         // TODO add your handling code here:
@@ -173,12 +173,12 @@ public class Ventana extends javax.swing.JFrame {
         lienzo.Dibujar(tri);
     }//GEN-LAST:event_btn_trianguloActionPerformed
 
-    private void btn_RotarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RotarActionPerformed
+    private void btn_ROTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ROTARActionPerformed
 
-        lienzo.getFigure(idActual).rotar(0.5);
+        lienzo.getFigure(idActual).rotar(45);
         lienzo.ReDibujar();
 
-    }//GEN-LAST:event_btn_RotarActionPerformed
+    }//GEN-LAST:event_btn_ROTARActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -214,13 +214,13 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Rotar;
+    private javax.swing.JButton btn_ROTAR;
     private javax.swing.JButton btn_circunferencia;
     private javax.swing.JButton btn_triangulo;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonESCALAR;
+    private javax.swing.JButton jButtonMOVER;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

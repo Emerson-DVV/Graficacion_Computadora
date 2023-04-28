@@ -10,6 +10,11 @@ public class Punto {
         this.y = y;
     }
 
+    @Override
+    public String toString() {
+        return "Punto{" + "x=" + x + ", y=" + y + '}';
+    }
+
     public int getX() {
         return x;
     }
