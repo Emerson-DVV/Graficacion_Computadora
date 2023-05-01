@@ -31,22 +31,23 @@ public class Algoritmo {
             Punto actual = pila.pop();
             int x = actual.getX();
             int y = actual.getY();
-            if(validos(x,y,width,height));
-            else if(!bordes[x][y]){
-                bordes[x][y] = true;
-                if(!bordes[x+escala][y]){
-                    insertar(pila, puntosValidos,x + escala, y);
+            if(validos(x,y,width,height)){
+                if(!bordes[x][y]){
+                    bordes[x][y] = true;
+                    if(!bordes[x+escala][y]){
+                        insertar(pila, puntosValidos,x + escala, y);
+                    }
+                    if(!bordes[x-escala][y]){
+                        insertar(pila, puntosValidos,x - escala, y);
+                    }
+                    if(!bordes[x][y+escala]){
+                        insertar(pila, puntosValidos,x, y + escala);
+                    }
+                    if(!bordes[x][y-escala]){
+                        insertar(pila, puntosValidos,x, y - escala);
+                    }
                 }
-                if(!bordes[x-escala][y]){
-                    insertar(pila, puntosValidos,x - escala, y);
-                }
-                if(!bordes[x][y+escala]){
-                    insertar(pila, puntosValidos,x, y + escala);
-                }
-                if(!bordes[x][y-escala]){
-                    insertar(pila, puntosValidos,x, y - escala);
-                }
-            }
+            }    
         }
         return puntosValidos;
     }

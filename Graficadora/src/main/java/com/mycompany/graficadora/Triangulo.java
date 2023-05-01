@@ -103,6 +103,29 @@ public class Triangulo extends Figure {
 
     @Override
     public ArrayList<Punto> pintar(int width, int height, int escala) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean [][] bordes = new boolean [height][width];
+        ArrayList<Punto> escalaReal = dibujar();
+        for (Punto punto : escalaReal) {
+            int xpixel = punto.getX() * escala;
+            if(xpixel == width) xpixel -= escala;
+            int ypixel = (height - (punto.getY() * escala))-escala;
+            if(ypixel < 0) ypixel = 0;
+            if(validos(xpixel,ypixel,width,height))bordes [xpixel][ypixel] = true;
+        }
+        int xpixel = centro.getX() * escala;
+        if(xpixel == width) xpixel -= escala;
+        int ypixel = (height - (centro.getY() * escala))-escala;
+        if(ypixel < 0) ypixel = 0;
+        Punto cp = new Punto(0, 0);
+        if(validos(xpixel,ypixel,width,height)){
+            cp.setX(xpixel);
+            cp.setY(ypixel);
+        }
+        return alg.cuatroVecinos(bordes, escala,cp);
     }
+
+    private boolean validos(int xpixel, int ypixel, int width, int height) {
+        return (xpixel > 0 && xpixel < width)&&(ypixel > 0 && ypixel < height);
+    }
+
 }

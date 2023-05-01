@@ -45,6 +45,29 @@ public class Circunferencia extends Figure {
     
     @Override
     public ArrayList<Punto> pintar(int width,int height,int escala){
-        return null;
+        boolean [][] bordes = new boolean [height][width];
+        ArrayList<Punto> escalaReal = dibujar();
+        for (Punto punto : escalaReal) {
+            int xpixel = punto.getX() * escala;
+            if(xpixel == width) xpixel -= escala;
+            int ypixel = (height - (punto.getY() * escala))-escala;
+            if(ypixel < 0) ypixel = 0;
+            if(validos(xpixel,ypixel,width,height))bordes [xpixel][ypixel] = true;
+        }
+        int xpixel = xc * escala;
+        if(xpixel == width) xpixel -= escala;
+        int ypixel = (height - (yc * escala))-escala;
+        if(ypixel < 0) ypixel = 0;
+        Punto cp = new Punto(0, 0);
+        if(validos(xpixel,ypixel,width,height)){
+            cp.setX(xpixel);
+            cp.setY(ypixel);
+        }
+        return alg.cuatroVecinos(bordes, escala,cp);
     }
+
+    private boolean validos(int xpixel, int ypixel, int width, int height) {
+        return (xpixel > 0 && xpixel < width)&&(ypixel > 0 && ypixel < height);
+    }
+
 }
