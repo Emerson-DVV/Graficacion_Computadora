@@ -114,4 +114,14 @@ public class Cuadrado extends Figure{
         return (xpixel > 0 && xpixel < width)&&(ypixel > 0 && ypixel < height);
     }
 
+    @Override
+    public int getID() {
+        return ID;
+    }
+
+    @Override
+    public Punto getCentro() {
+        return centro;
+    }
+
 }

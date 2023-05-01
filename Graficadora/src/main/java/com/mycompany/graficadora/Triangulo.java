@@ -27,6 +27,7 @@ public class Triangulo extends Figure {
         B = new Punto((a / 2), h);
         C = new Punto(a, A.getX());
         vertices();
+        centrar();
     }
 
     private void vertices() {
@@ -36,7 +37,7 @@ public class Triangulo extends Figure {
         vertices.add(C);
     }
 
-    public void getCentro() {
+    public void centrar() {
         int cx = A.getX() + B.getX() + C.getX();
         int cy = A.getY() + B.getY() + C.getY();
         centro = new Punto(cx / 3, cy / 3);
@@ -64,7 +65,7 @@ public class Triangulo extends Figure {
             vertice.setX(vertice.getX() + dx);
             vertice.setY(vertice.getY() + dy);
         }
-        getCentro();
+        centrar();
     }
 
     @Override
@@ -130,6 +131,16 @@ public class Triangulo extends Figure {
 
     private boolean validos(int xpixel, int ypixel, int width, int height) {
         return (xpixel > 0 && xpixel < width)&&(ypixel > 0 && ypixel < height);
+    }
+
+    @Override
+    public int getID() {
+       return ID;
+    }
+
+    @Override
+    public Punto getCentro() {
+        return centro;
     }
 
 }

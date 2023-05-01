@@ -74,4 +74,15 @@ public class Circunferencia extends Figure {
         return (xpixel > 0 && xpixel < width)&&(ypixel > 0 && ypixel < height);
     }
 
+    @Override
+    public int getID() {
+        return ID;
+    }
+
+    @Override
+    public Punto getCentro() {
+        Punto centro = new Punto(xc, yc);
+        return centro;
+    }
+
 }

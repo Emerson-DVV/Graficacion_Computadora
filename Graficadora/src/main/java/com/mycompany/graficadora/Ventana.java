@@ -1,6 +1,7 @@
 package com.mycompany.graficadora;
 
 import java.awt.Color;
+import javax.swing.DefaultListModel;
 
 public class Ventana extends javax.swing.JFrame {
 
@@ -10,6 +11,8 @@ public class Ventana extends javax.swing.JFrame {
     private Lienzo lienzo;
     private int idActual;
     private int caso; //Variable Switch para dibujar continuo o segementado.
+    DefaultListModel<Integer> modeloLista = new DefaultListModel<>();
+    private int idUltimo;
 
     public Ventana() {
         initComponents();
@@ -17,8 +20,10 @@ public class Ventana extends javax.swing.JFrame {
         lienzo = new Lienzo(this.jPanel1);
         idActual = 0;
         caso = 0;
+        idUltimo = 0;
+        lista_Figuras.setModel(modeloLista);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +43,8 @@ public class Ventana extends javax.swing.JFrame {
         jButtonPINTAR = new javax.swing.JButton();
         bnt_dibSegmentado = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lista_Figuras = new javax.swing.JList<>();
         fondo = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
@@ -58,7 +65,7 @@ public class Ventana extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -87,7 +94,7 @@ public class Ventana extends javax.swing.JFrame {
                 jButtonMOVERMouseClicked(evt);
             }
         });
-        getContentPane().add(jButtonMOVER, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
+        getContentPane().add(jButtonMOVER, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, -1, -1));
 
         jButtonESCALAR.setText("Escalar");
         jButtonESCALAR.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -108,7 +115,7 @@ public class Ventana extends javax.swing.JFrame {
                 btn_trianguloActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_triangulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, -1, -1));
+        getContentPane().add(btn_triangulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, -1, -1));
 
         btn_circunferencia.setText("Circunferencia");
         btn_circunferencia.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,7 +136,7 @@ public class Ventana extends javax.swing.JFrame {
                 btn_ROTARActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_ROTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 560, -1, -1));
+        getContentPane().add(btn_ROTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 570, -1, -1));
 
         jButtonPINTAR.setText("Pintar");
         jButtonPINTAR.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -158,16 +165,30 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 550, -1, -1));
+        lista_Figuras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lista_FigurasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lista_Figuras);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 30, 150, 360));
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1060, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         Punto a = new Punto(2, 2);
-        idActual++;
-        Cuadrado c = new Cuadrado(a, idActual, 6);
+        idUltimo++;
+        Cuadrado c = new Cuadrado(a, idUltimo, 6);
         lienzo.aniadir(c);
         lienzo.ReDibujar(caso);
+        modeloLista.addElement(c.getID());
+        
+        lista_Figuras.setSelectedValue(c.getID(), true);
+        idActual = idUltimo;
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -184,10 +205,14 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonESCALARMouseClicked
 
     private void btn_circunferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_circunferenciaActionPerformed
-        idActual++;
-        Circunferencia circ = new Circunferencia(idActual, 100, 100, 15);
+        idUltimo++;
+        Circunferencia circ = new Circunferencia(idUltimo, 100, 100, 15);
         lienzo.aniadir(circ);
         lienzo.ReDibujar(caso);
+        modeloLista.addElement(circ.getID());
+        
+        lista_Figuras.setSelectedValue(circ.getID(), true);
+        idActual = idUltimo;
     }//GEN-LAST:event_btn_circunferenciaActionPerformed
 
     private void btn_circunferenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_circunferenciaMouseClicked
@@ -200,10 +225,14 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonESCALARActionPerformed
 
     private void btn_trianguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_trianguloActionPerformed
-        idActual++;
-        Triangulo tri = new Triangulo(idActual, 20);
+        idUltimo++;
+        Triangulo tri = new Triangulo(idUltimo, 20);
         lienzo.aniadir(tri);
         lienzo.ReDibujar(caso);
+        modeloLista.addElement(tri.getID());
+        
+        lista_Figuras.setSelectedValue(tri.getID(), true);
+        idActual = idUltimo;
     }//GEN-LAST:event_btn_trianguloActionPerformed
 
     private void btn_ROTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ROTARActionPerformed
@@ -239,6 +268,11 @@ public class Ventana extends javax.swing.JFrame {
         lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void lista_FigurasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_FigurasMouseClicked
+        
+        int indiceElemento = lista_Figuras.locationToIndex(evt.getPoint());
+        idActual = modeloLista.getElementAt(indiceElemento);
+    }//GEN-LAST:event_lista_FigurasMouseClicked
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -285,5 +319,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Integer> lista_Figuras;
     // End of variables declaration//GEN-END:variables
 }

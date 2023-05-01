@@ -15,7 +15,8 @@ public abstract class Figure {
         color = Color.WHITE;
         grosor = segmentado = false;
     }
-    
+    public abstract int getID();
+    public abstract Punto getCentro();
     public abstract ArrayList<Punto> dibujar();
     public abstract void traslacion(int dx, int dy);
     public abstract void rotar(double angulo);

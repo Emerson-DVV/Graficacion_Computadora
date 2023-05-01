@@ -23,6 +23,9 @@ public class Lienzo{
         graficos = (Graphics2D)panel.getGraphics();
         figuras = new ArrayList<>();
     }
+    public ArrayList<Figure> getListaFigura(){
+        return figuras;
+    }
 
     public void aniadir(Figure f){
         figuras.add(f);
@@ -50,6 +53,7 @@ public class Lienzo{
                         graficos.fillRect(punto.getX(), punto.getY(), escala, escala);
                     }
                 }
+                graficarID(figura);
             }
         }else{
             for (Figure figura : figuras) {
@@ -61,6 +65,7 @@ public class Lienzo{
                         graficos.fillRect(punto.getX(), punto.getY(), escala, escala);
                     }
                 }
+                graficarID(figura);
             }
         }
     }
@@ -77,6 +82,17 @@ public class Lienzo{
             Punto punto = f.dibujar().get(i);
             GraficarPunto(punto.getX(), punto.getY());
         }
+    }
+    
+    private void graficarID(Figure f){
+        Punto centro = f.getCentro();
+        
+        int xpixel = centro.getX() * escala;
+        if(xpixel == width) xpixel -= escala;
+        int ypixel = (height - (centro.getY() * escala))-escala;
+        if(ypixel < 0) ypixel = 0;
+        graficos.setColor(Color.RED);
+        graficos.drawString(f.getID() + "", xpixel, ypixel);
     }
     
     private void GraficarPunto(int x, int y){
