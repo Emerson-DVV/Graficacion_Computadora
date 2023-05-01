@@ -11,25 +11,40 @@ public class Triangulo extends Figure {
 
     private int a;
     private int h;
-    private int r;
     private Algoritmo alg;
     private Punto A;
     private Punto B;
     private Punto C;
+    private Punto centro;
+    ArrayList<Punto> vertices;
 
     public Triangulo(int ID, int a) {
         super(ID);
         this.a = a;
         h = ((int) (a * Math.sqrt(3)) / 2);
-        r = (2 * h) / 2;
         alg = new Algoritmo();
         A = new Punto(0, 0);
         B = new Punto((a / 2), h);
         C = new Punto(a, A.getX());
+        vertices();
+    }
+
+    private void vertices() {
+        vertices = new ArrayList<>();
+        vertices.add(A);
+        vertices.add(B);
+        vertices.add(C);
+    }
+
+    public void getCentro() {
+        int cx = A.getX() + B.getX() + C.getX();
+        int cy = A.getY() + B.getY() + C.getY();
+        centro = new Punto(cx / 3, cy / 3);
     }
 
     @Override
     public ArrayList<Punto> dibujar() {
+
         ArrayList<Punto> puntos = new ArrayList<>();
 
         alg.DDA(A, B, puntos);
@@ -41,49 +56,53 @@ public class Triangulo extends Figure {
 
     @Override
     public void traslacion(int dx, int dy) {
-        A.setX(A.getX() + dx);
-        A.setY(A.getY() + dy);
-
-        B.setX(B.getX() + dx);
-        B.setY(B.getY() + dy);
-
-        C.setX(C.getX() + dx);
-        C.setY(C.getY() + dy);
-
-//        B = new Punto((a / 2) + A.getX(), h + A.getY());
-//        C = new Punto((a + A.getX()), A.getY());
+        for (Punto vertice : vertices) {
+            vertice.setX(vertice.getX() + dx);
+            vertice.setY(vertice.getY() + dy);
+        }
+        getCentro();
     }
 
     @Override
     public void rotar(double angulo) {
-        int dx = A.getX();
-        int dy = A.getY();
+        Punto pivote = centro;
+        double anguloRadianes = Math.toRadians(angulo);
+        double cos = Math.cos(anguloRadianes);
+        double sen = Math.sin(anguloRadianes);
 
-        traslacion(-dx, -dy);
+        traslacion(-pivote.getX(), -pivote.getY());  //lo lleva al origen
 
-        A.setX((int) Math.round(A.getX() * Math.cos(angulo) - A.getY() * Math.sin(angulo)));
-        A.setY((int) Math.round(A.getX() * Math.sin(angulo) + A.getY() * Math.cos(angulo)));
+        for (Punto vertice : vertices) {
+            double xprima = vertice.getX() * cos - vertice.getY() * sen;
+            double yprima = vertice.getX() * sen + vertice.getY() * cos;
 
-        B.setX((int) Math.round(B.getX() * Math.cos(angulo) - B.getY() * Math.sin(angulo)));
-        B.setY((int) Math.round(B.getX() * Math.sin(angulo) + B.getY() * Math.cos(angulo)));
+            long x = Math.round(xprima);
+            long y = Math.round(yprima);
 
-        C.setX((int) Math.round(C.getX() * Math.cos(angulo) - C.getY() * Math.sin(angulo)));
-        C.setY((int) Math.round(C.getX() * Math.sin(angulo) + C.getY() * Math.cos(angulo)));
-
-        traslacion(dx, dy);
-
+            vertice.setX((int) x);
+            vertice.setY((int) y);
+        }
+        
+        traslacion(pivote.getX(), pivote.getY());
     }
 
     @Override
     public void escalar(double valor) {
-        a = (int)(a * valor / 2.0);
-        h = ((int) (a * Math.sqrt(3)) / 2);
-        B = new Punto((a / 2) + A.getX(), h + A.getY());
-        C = new Punto((a + A.getX()), A.getY());
+
+        Punto pivote = centro;
+
+        traslacion(-pivote.getX(), -pivote.getY());
+
+        for (Punto vertice : vertices) {
+            vertice.setX((int) (vertice.getX() * valor));
+            vertice.setY((int) (vertice.getY() * valor));
+        }
+
+        traslacion(pivote.getX(), pivote.getY());
     }
-    
+
     @Override
-    public ArrayList<Punto> pintar(int width,int height,int escala){
-        return null;
+    public ArrayList<Punto> pintar(int width, int height, int escala) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
