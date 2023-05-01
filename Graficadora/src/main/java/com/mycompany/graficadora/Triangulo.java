@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.graficadora;
 
 import java.util.ArrayList;
@@ -84,5 +81,9 @@ public class Triangulo extends Figure {
         B = new Punto((a / 2) + A.getX(), h + A.getY());
         C = new Punto((a + A.getX()), A.getY());
     }
-
+    
+    @Override
+    public void rellenar(Lienzo l){
+    
+    }
 }

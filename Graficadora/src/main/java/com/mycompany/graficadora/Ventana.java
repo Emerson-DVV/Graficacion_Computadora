@@ -33,8 +33,9 @@ public class Ventana extends javax.swing.JFrame {
         btn_triangulo = new javax.swing.JButton();
         btn_circunferencia = new javax.swing.JButton();
         btn_ROTAR = new javax.swing.JButton();
-        fondo = new javax.swing.JLabel();
+        jButtonPINTAR = new javax.swing.JButton();
         bnt_dibSegmentado = new javax.swing.JButton();
+        fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusTraversalPolicyProvider(true);
@@ -125,7 +126,14 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_ROTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 560, -1, -1));
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1000, 600));
+
+        jButtonPINTAR.setText("Pintar");
+        jButtonPINTAR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonPINTARMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButtonPINTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 550, -1, -1));
 
         bnt_dibSegmentado.setText("DibujarSegmentado");
         bnt_dibSegmentado.addActionListener(new java.awt.event.ActionListener() {
@@ -134,14 +142,15 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bnt_dibSegmentado, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 520, -1, -1));
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1060, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Punto a = new Punto(10, 15);
+        Punto a = new Punto(2, 2);
         idActual++;
-        Cuadrado c = new Cuadrado(a, idActual, 10);
+        Cuadrado c = new Cuadrado(a, idActual, 6);
         lienzo.aniadir(c);
         lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jButton1MouseClicked
@@ -198,6 +207,10 @@ public class Ventana extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bnt_dibSegmentadoActionPerformed
 
+    private void jButtonPINTARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPINTARMouseClicked
+        lienzo.getFigure(idActual).rellenar(lienzo);
+    }//GEN-LAST:event_jButtonPINTARMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -240,6 +253,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonESCALAR;
     private javax.swing.JButton jButtonMOVER;
+    private javax.swing.JButton jButtonPINTAR;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

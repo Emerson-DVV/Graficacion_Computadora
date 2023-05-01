@@ -10,10 +10,10 @@ import javax.swing.JPanel;
  * @author Emer
  */
 public class Lienzo{
-    private JPanel panel;
-    private int width,height,escala;
-    private Graphics2D graficos;
-    private ArrayList<Figure> figuras;
+    JPanel panel;
+    int width,height,escala;
+    Graphics2D graficos;
+    ArrayList<Figure> figuras;
     
     public Lienzo(JPanel panel){
         this.panel = panel;
@@ -23,18 +23,7 @@ public class Lienzo{
         graficos = (Graphics2D)panel.getGraphics();
         figuras = new ArrayList<>();
     }
-    
-    public void Grilla(){
-        //graficos.clearRect(0, 0, width, height);
-        
-        for (int x = 0; x < width; x += escala) {
-            graficos.drawLine(x, 0, x, height); // Verticales
-        }
-        for (int y = 0; y < height; y += escala) {
-            graficos.drawLine(0, y, width, y); // Horizontales
-        }
-        
-    }
+
     public void aniadir(Figure f){
         figuras.add(f);
     }
@@ -53,7 +42,7 @@ public class Lienzo{
         panel.paint(graficos);
         if(caso == 0){
             for (Figure figura : figuras) {
-                Dibujar(figura);
+                Lienzo.this.Dibujar(figura);
             }
         }else{
             for (Figure figura : figuras) {
@@ -61,13 +50,21 @@ public class Lienzo{
             }
         }
     }
+    
+    public void Dibujar(ArrayList<Punto> cuatroVecinos) {
+        ReDibujar(0);
+        for (Punto punto : cuatroVecinos) {
+            GraficarPunto(punto.getX(), punto.getY(), Color.yellow);
+        }
+        
+    }
 
     public void Dibujar(Figure f){
         for (Punto punto : f.dibujar()) {
             GraficarPunto(punto.getX(), punto.getY());
         }
     }
-    
+
     public void DibujarSegmentado(Figure f){
         for(int i = 0; i < f.dibujar().size(); i = i + 3){ //Valor i cantidad de puntos que se saltara para luego dibujarlos.
             Punto punto = f.dibujar().get(i);
@@ -78,10 +75,15 @@ public class Lienzo{
     private void GraficarPunto(int x, int y){
         int xpixel = x * escala;
         if(xpixel == width) xpixel -= escala;
-        int ypixel = (height - (y * escala))- escala;
+        int ypixel = (height - (y * escala))-escala;
         if(ypixel < 0) ypixel = 0;
         graficos.setColor(Color.BLACK);
         graficos.fillRect(xpixel, ypixel, escala, escala);
+    }
+    
+    private void GraficarPunto(int x, int y,Color color){
+        graficos.setColor(color);
+        graficos.fillRect(x, y, escala, escala);
     }
     
 }

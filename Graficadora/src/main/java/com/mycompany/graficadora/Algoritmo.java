@@ -2,6 +2,7 @@
 package com.mycompany.graficadora;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Algoritmo {
     public void DDA(Punto a, Punto b,ArrayList<Punto> puntos){
@@ -17,6 +18,39 @@ public class Algoritmo {
             x += xInc;
             y += yInc;
         }
+    }
+    
+    public ArrayList<Punto> cuatroVecinos(boolean [][] bordes,int escala,Punto centro){
+        ArrayList<Punto> puntosValidos = new ArrayList<>();
+        Stack<Punto> pila = new Stack<>();
+        pila.push(centro);
+        puntosValidos.add(centro);
+        while(!pila.isEmpty()){
+            Punto actual = pila.pop();
+            int x = actual.getX();
+            int y = actual.getY();
+            if(!bordes[x][y]){
+                bordes[x][y] = true;
+                if(!bordes[x+escala][y]){
+                    insertar(pila, puntosValidos,x + escala, y);
+                }
+                if(!bordes[x-escala][y]){
+                    insertar(pila, puntosValidos,x - escala, y);
+                }
+                if(!bordes[x][y+escala]){
+                    insertar(pila, puntosValidos,x, y + escala);
+                }
+                if(!bordes[x][y-escala]){
+                    insertar(pila, puntosValidos,x, y - escala);
+                }
+            }
+        }
+        return puntosValidos;
+    }
+    
+    private void insertar(Stack<Punto> pila,ArrayList<Punto> puntosValidos,int x, int y){
+        puntosValidos.add(new Punto(x,y));
+        pila.push(new Punto(x,y));
     }
     
     public void BresenhamCirc(int xc, int yc, int r, ArrayList<Punto> puntos){

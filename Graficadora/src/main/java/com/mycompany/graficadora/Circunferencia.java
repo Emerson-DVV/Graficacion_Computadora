@@ -42,4 +42,9 @@ public class Circunferencia extends Figure {
     public void escalar(int valor) {
         r = r + (valor); //La circunferencia solo requiere disminuir o aumentar el radio para escalarlo.
     }
+    
+    @Override
+    public void rellenar(Lienzo l){
+    
+    }
 }

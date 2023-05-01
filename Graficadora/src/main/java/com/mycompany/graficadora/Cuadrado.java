@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Cuadrado extends Figure{
     Punto v1,v2,v3,v4,centro;
     ArrayList<Punto> vertices;
-    Algoritmo alg;
+    Algoritmo algoritmos;
     
     public Cuadrado(Punto v1,int ID,int lado){
         super(ID);
@@ -17,7 +17,7 @@ public class Cuadrado extends Figure{
         v4 = new Punto(v1.getX()+ lado,v1.getY()+lado);
         centro();
         vertices();
-        alg = new Algoritmo();
+        algoritmos = new Algoritmo();
     }
     
     private void vertices(){
@@ -38,10 +38,10 @@ public class Cuadrado extends Figure{
     @Override
     public ArrayList<Punto> dibujar() {
         ArrayList<Punto> puntos = new ArrayList<>();
-        alg.DDA(this.v1, this.v2, puntos);
-        alg.DDA(this.v1, this.v3, puntos);
-        alg.DDA(this.v3, this.v4, puntos);
-        alg.DDA(this.v2, this.v4, puntos);
+        algoritmos.DDA(this.v1, this.v2, puntos);
+        algoritmos.DDA(this.v1, this.v3, puntos);
+        algoritmos.DDA(this.v3, this.v4, puntos);
+        algoritmos.DDA(this.v2, this.v4, puntos);
         return puntos;
     }
 
@@ -81,5 +81,24 @@ public class Cuadrado extends Figure{
             vertice.setY((int)(vertice.getY() * valor));
         }
         traslacion(pivote.getX(), pivote.getY());
-    }   
+    }  
+    
+    @Override
+    public void rellenar(Lienzo l){
+        boolean [][] bordes = new boolean [l.height][l.width];
+        ArrayList<Punto> escalaReal = dibujar();
+        for (Punto punto : escalaReal) {
+            int xpixel = punto.getX() * l.escala;
+            if(xpixel == l.width) xpixel -= l.escala;
+            int ypixel = (l.height - (punto.getY() * l.escala))-l.escala;
+            if(ypixel < 0) ypixel = 0;
+            bordes [xpixel][ypixel] = true;
+        }
+        int xpixel = centro.getX() * l.escala;
+        if(xpixel == l.width) xpixel -= l.escala;
+        int ypixel = (l.height - (centro.getY() * l.escala))-l.escala;
+        if(ypixel < 0) ypixel = 0;
+        ArrayList<Punto> ans = algoritmos.cuatroVecinos(bordes, l.escala, new Punto(xpixel,ypixel));
+        l.Dibujar(ans);
+    }
 }

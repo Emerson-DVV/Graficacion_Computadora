@@ -1,9 +1,3 @@
 com\mycompany\graficadora\Bresenham.class
-com\mycompany\graficadora\Graphics$2.class
-com\mycompany\graficadora\FiguraGeometrica.class
-com\mycompany\graficadora\Graphics$3.class
-com\mycompany\graficadora\Cuadrado.class
-com\mycompany\graficadora\Graphics$1.class
 com\mycompany\graficadora\Punto.class
-com\mycompany\graficadora\DrawFrameShape.class
-com\mycompany\graficadora\Graphics.class
+com\mycompany\graficadora\Cuadrado.class
