@@ -39,24 +39,30 @@ public class Lienzo{
     }
     public void ReDibujar(int caso){
         panel.removeAll();
-        panel.paint(graficos);
+        panel.paint(graficos); 
         if(caso == 0){
             for (Figure figura : figuras) {
-                Lienzo.this.Dibujar(figura);
+                Dibujar(figura);
+                if(figura.color != Color.WHITE){
+                    ArrayList<Punto> puntos = figura.pintar(width, height, escala);
+                    graficos.setColor(figura.color);
+                    for (Punto punto : puntos) {
+                        graficos.fillRect(punto.getX(), punto.getY(), escala, escala);
+                    }
+                }
             }
         }else{
             for (Figure figura : figuras) {
                 DibujarSegmentado(figura);
+                if(figura.color != Color.WHITE){
+                    ArrayList<Punto> puntos = figura.pintar(width, height, escala);
+                    graficos.setColor(figura.color);
+                    for (Punto punto : puntos) {
+                        graficos.fillRect(punto.getX(), punto.getY(), escala, escala);
+                    }
+                }
             }
         }
-    }
-    
-    public void Dibujar(ArrayList<Punto> cuatroVecinos) {
-        ReDibujar(0);
-        for (Punto punto : cuatroVecinos) {
-            GraficarPunto(punto.getX(), punto.getY(), Color.yellow);
-        }
-        
     }
 
     public void Dibujar(Figure f){
@@ -66,7 +72,7 @@ public class Lienzo{
     }
 
     public void DibujarSegmentado(Figure f){
-        for(int i = 0; i < f.dibujar().size(); i = i + 3){ //Valor i cantidad de puntos que se saltara para luego dibujarlos.
+        for(int i = 0; i < f.dibujar().size(); i += 3){ //Valor i cantidad de puntos que se saltara para luego dibujarlos.
             Punto punto = f.dibujar().get(i);
             GraficarPunto(punto.getX(), punto.getY());
         }
@@ -79,11 +85,5 @@ public class Lienzo{
         if(ypixel < 0) ypixel = 0;
         graficos.setColor(Color.BLACK);
         graficos.fillRect(xpixel, ypixel, escala, escala);
-    }
-    
-    private void GraficarPunto(int x, int y,Color color){
-        graficos.setColor(color);
-        graficos.fillRect(x, y, escala, escala);
-    }
-    
+    }  
 }

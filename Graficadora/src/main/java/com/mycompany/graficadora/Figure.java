@@ -1,5 +1,6 @@
 package com.mycompany.graficadora;
 
+import java.awt.Color;
 import java.util.ArrayList;
 /**
  *
@@ -7,14 +8,17 @@ import java.util.ArrayList;
  */
 public abstract class Figure {
     protected int ID;
-    protected boolean pintado;
+    protected Color color;
+    protected boolean grosor,segmentado;
     public Figure(int ID){
         this.ID = ID;
+        color = Color.WHITE;
+        grosor = segmentado = false;
     }
     
     public abstract ArrayList<Punto> dibujar();
     public abstract void traslacion(int dx, int dy);
     public abstract void rotar(double angulo);
-    public abstract void escalar(int valor);
-    public abstract void rellenar(Lienzo l);
+    public abstract void escalar(double valor);
+    public abstract ArrayList<Punto> pintar(int width,int height,int escala);
 }

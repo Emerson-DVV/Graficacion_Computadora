@@ -1,6 +1,7 @@
 
 package com.mycompany.graficadora;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Cuadrado extends Figure{
@@ -11,7 +12,6 @@ public class Cuadrado extends Figure{
     public Cuadrado(Punto v1,int ID,int lado){
         super(ID);
         this.v1 = v1;
-        this.ID = ID;
         v2 = new Punto(v1.getX()+lado,v1.getY());
         v3 = new Punto(v1.getX(),v1.getY()+lado);
         v4 = new Punto(v1.getX()+ lado,v1.getY()+lado);
@@ -42,6 +42,7 @@ public class Cuadrado extends Figure{
         algoritmos.DDA(this.v1, this.v3, puntos);
         algoritmos.DDA(this.v3, this.v4, puntos);
         algoritmos.DDA(this.v2, this.v4, puntos);
+        
         return puntos;
     }
 
@@ -73,7 +74,7 @@ public class Cuadrado extends Figure{
     }
 
     @Override
-    public void escalar(int valor) {
+    public void escalar(double valor) {
         Punto pivote = centro;
         traslacion(-pivote.getX(), -pivote.getY());
         for (Punto vertice : vertices) {
@@ -84,21 +85,30 @@ public class Cuadrado extends Figure{
     }  
     
     @Override
-    public void rellenar(Lienzo l){
-        boolean [][] bordes = new boolean [l.height][l.width];
+    public ArrayList<Punto> pintar(int width,int height,int escala){
+        boolean [][] bordes = new boolean [height][width];
         ArrayList<Punto> escalaReal = dibujar();
         for (Punto punto : escalaReal) {
-            int xpixel = punto.getX() * l.escala;
-            if(xpixel == l.width) xpixel -= l.escala;
-            int ypixel = (l.height - (punto.getY() * l.escala))-l.escala;
+            int xpixel = punto.getX() * escala;
+            if(xpixel == width) xpixel -= escala;
+            int ypixel = (height - (punto.getY() * escala))-escala;
             if(ypixel < 0) ypixel = 0;
-            bordes [xpixel][ypixel] = true;
+            if(validos(xpixel,ypixel,width,height))bordes [xpixel][ypixel] = true;
         }
-        int xpixel = centro.getX() * l.escala;
-        if(xpixel == l.width) xpixel -= l.escala;
-        int ypixel = (l.height - (centro.getY() * l.escala))-l.escala;
+        int xpixel = centro.getX() * escala;
+        if(xpixel == width) xpixel -= escala;
+        int ypixel = (height - (centro.getY() * escala))-escala;
         if(ypixel < 0) ypixel = 0;
-        ArrayList<Punto> ans = algoritmos.cuatroVecinos(bordes, l.escala, new Punto(xpixel,ypixel));
-        l.Dibujar(ans);
+        Punto cp = new Punto(0, 0);
+        if(validos(xpixel,ypixel,width,height)){
+            cp.setX(xpixel);
+            cp.setY(ypixel);
+        }
+        return algoritmos.cuatroVecinos(bordes, escala,cp);
     }
+
+    private boolean validos(int xpixel, int ypixel, int width, int height) {
+        return (xpixel > 0 && xpixel < width)&&(ypixel > 0 && ypixel < height);
+    }
+
 }

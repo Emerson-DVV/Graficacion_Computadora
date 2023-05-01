@@ -75,15 +75,15 @@ public class Triangulo extends Figure {
     }
 
     @Override
-    public void escalar(int valor) {
-        a = a * valor / 2;
+    public void escalar(double valor) {
+        a = (int)(a * valor / 2.0);
         h = ((int) (a * Math.sqrt(3)) / 2);
         B = new Punto((a / 2) + A.getX(), h + A.getY());
         C = new Punto((a + A.getX()), A.getY());
     }
     
     @Override
-    public void rellenar(Lienzo l){
-    
+    public ArrayList<Punto> pintar(int width,int height,int escala){
+        return null;
     }
 }

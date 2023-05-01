@@ -21,6 +21,8 @@ public class Algoritmo {
     }
     
     public ArrayList<Punto> cuatroVecinos(boolean [][] bordes,int escala,Punto centro){
+        int width = bordes.length;
+        int height = bordes[0].length;
         ArrayList<Punto> puntosValidos = new ArrayList<>();
         Stack<Punto> pila = new Stack<>();
         pila.push(centro);
@@ -29,7 +31,8 @@ public class Algoritmo {
             Punto actual = pila.pop();
             int x = actual.getX();
             int y = actual.getY();
-            if(!bordes[x][y]){
+            if(validos(x,y,width,height));
+            else if(!bordes[x][y]){
                 bordes[x][y] = true;
                 if(!bordes[x+escala][y]){
                     insertar(pila, puntosValidos,x + escala, y);
@@ -48,12 +51,16 @@ public class Algoritmo {
         return puntosValidos;
     }
     
+    private boolean validos(int x, int y, int width, int height) {
+        return (x > 0 && x < width)&&(y > 0 && y < height);
+    }
+    
     private void insertar(Stack<Punto> pila,ArrayList<Punto> puntosValidos,int x, int y){
         puntosValidos.add(new Punto(x,y));
         pila.push(new Punto(x,y));
     }
     
-    public void BresenhamCirc(int xc, int yc, int r, ArrayList<Punto> puntos){
+     public void BresenhamCirc(int xc, int yc, int r, ArrayList<Punto> puntos){
         if (r <= 0) {
             drawCircle(puntos, xc, yc, 0, 0); //Dibuja un punto en el centro de la circunferencia
         } else {

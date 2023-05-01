@@ -1,5 +1,7 @@
 package com.mycompany.graficadora;
 
+import java.awt.Color;
+
 public class Ventana extends javax.swing.JFrame {
 
     /**
@@ -180,7 +182,7 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_circunferenciaMouseClicked
 
     private void jButtonESCALARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonESCALARActionPerformed
-        lienzo.getFigure(idActual).escalar(3);
+        lienzo.getFigure(idActual).escalar(1.2);
         lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jButtonESCALARActionPerformed
 
@@ -208,7 +210,8 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_bnt_dibSegmentadoActionPerformed
 
     private void jButtonPINTARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPINTARMouseClicked
-        lienzo.getFigure(idActual).rellenar(lienzo);
+        lienzo.getFigure(idActual).color = Color.YELLOW;
+        lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jButtonPINTARMouseClicked
 
     public static void main(String args[]) {
