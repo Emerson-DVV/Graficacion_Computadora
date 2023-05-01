@@ -37,7 +37,9 @@ public class Ventana extends javax.swing.JFrame {
         btn_ROTAR = new javax.swing.JButton();
         jButtonPINTAR = new javax.swing.JButton();
         bnt_dibSegmentado = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusTraversalPolicyProvider(true);
@@ -144,7 +146,18 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bnt_dibSegmentado, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 520, -1, -1));
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1060, 600));
+
+        jLabel4.setText("Grosor");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 520, 60, -1));
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 0, 1060, 600));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Si" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 550, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -182,7 +195,7 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_circunferenciaMouseClicked
 
     private void jButtonESCALARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonESCALARActionPerformed
-        lienzo.getFigure(idActual).escalar(1.2);
+        lienzo.getFigure(idActual).escalar(1.5);
         lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jButtonESCALARActionPerformed
 
@@ -213,6 +226,18 @@ public class Ventana extends javax.swing.JFrame {
         lienzo.getFigure(idActual).color = Color.YELLOW;
         lienzo.ReDibujar(caso);
     }//GEN-LAST:event_jButtonPINTARMouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        switch (jComboBox1.getSelectedIndex()){
+            case 0: //No
+                lienzo.getFigure(idActual).grosor = false;
+                break;
+            case 1: //Si
+                lienzo.getFigure(idActual).grosor = true;
+                break;
+        }
+        lienzo.ReDibujar(caso);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -257,6 +282,8 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton jButtonESCALAR;
     private javax.swing.JButton jButtonMOVER;
     private javax.swing.JButton jButtonPINTAR;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

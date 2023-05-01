@@ -93,4 +93,22 @@ public class Algoritmo {
         puntos.add(new Punto(xc + y, yc - x));
         puntos.add(new Punto(xc - y, yc - x));
     }
+    
+    public ArrayList<Punto> agregarPuntosGrosor(ArrayList<Punto> puntos, int grosor){
+        int tamanio = puntos.size();
+        for(int j = 0 ; j < tamanio ; j++){
+            Punto punto = puntos.get(j);
+            for(int i = 0 ; i <= grosor  ; i++){
+                puntos.add(new Punto(punto.getX(),punto.getY()+i));
+                puntos.add(new Punto(punto.getX(),punto.getY()-i));
+                puntos.add(new Punto(punto.getX()+i,punto.getY()));
+                puntos.add(new Punto(punto.getX()-i,punto.getY()));
+                puntos.add(new Punto(punto.getX()+i,punto.getY()+i));
+                puntos.add(new Punto(punto.getX()+i,punto.getY()-i));
+                puntos.add(new Punto(punto.getX()-i,punto.getY()+i));
+                puntos.add(new Punto(punto.getX()-i,punto.getY()-i));
+            }
+        }
+        return puntos;
+    }
 }

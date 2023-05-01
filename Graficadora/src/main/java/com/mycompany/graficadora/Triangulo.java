@@ -51,6 +51,10 @@ public class Triangulo extends Figure {
         alg.DDA(B, C, puntos);
         alg.DDA(C, A, puntos);
 
+        //grosor
+        if(grosor == true){
+            puntos = alg.agregarPuntosGrosor(puntos, 1);
+        }
         return puntos;
     }
 

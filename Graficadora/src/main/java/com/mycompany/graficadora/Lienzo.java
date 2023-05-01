@@ -71,6 +71,7 @@ public class Lienzo{
         }
     }
 
+    //Corregir Segmentado, no coloca los puntos bien al agregar grosor a la linea.
     public void DibujarSegmentado(Figure f){
         for(int i = 0; i < f.dibujar().size(); i += 3){ //Valor i cantidad de puntos que se saltara para luego dibujarlos.
             Punto punto = f.dibujar().get(i);

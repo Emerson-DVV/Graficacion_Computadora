@@ -19,14 +19,18 @@ public class Circunferencia extends Figure {
         this.r = r;
         alg = new Algoritmo();
     }
-
+    
     @Override
     public ArrayList<Punto> dibujar() {
         ArrayList<Punto> puntos = new ArrayList();
         alg.BresenhamCirc(xc, yc, r, puntos);
+        //grosor
+        if(grosor == true){
+            puntos = alg.agregarPuntosGrosor(puntos, 1);
+        }
         return puntos;
     }
-
+    
     @Override
     public void traslacion(int dx, int dy) {
         xc = xc + dx;
