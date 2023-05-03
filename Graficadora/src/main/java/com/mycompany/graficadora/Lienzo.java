@@ -97,9 +97,7 @@ public class Lienzo{
     
     private void GraficarPunto(int x, int y){
         int xpixel = x * escala;
-        if(xpixel == width) xpixel -= escala;
         int ypixel = (height - (y * escala))-escala;
-        if(ypixel < 0) ypixel = 0;
         graficos.setColor(Color.BLACK);
         graficos.fillRect(xpixel, ypixel, escala, escala);
     }  

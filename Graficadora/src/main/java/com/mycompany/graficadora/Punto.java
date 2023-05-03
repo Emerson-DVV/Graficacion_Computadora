@@ -1,4 +1,7 @@
 package com.mycompany.graficadora;
+
+import java.util.Objects;
+
 /**
  *
  * @author Emer
@@ -8,6 +11,21 @@ public class Punto {
     public Punto(int x, int y){
         this.x = x;
         this.y = y;
+    }
+    
+        // Implementación del método equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Punto punto = (Punto) o;
+        return x == punto.x && y == punto.y;
+    }
+
+    // Implementación del método hashCode
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     @Override

@@ -184,8 +184,7 @@ public class Ventana extends javax.swing.JFrame {
         Cuadrado c = new Cuadrado(a, idUltimo, 6);
         lienzo.aniadir(c);
         lienzo.ReDibujar(caso);
-        modeloLista.addElement(c.getID());
-        
+        modeloLista.addElement(c.getID()); 
         lista_Figuras.setSelectedValue(c.getID(), true);
         idActual = idUltimo;
         
@@ -236,7 +235,7 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_trianguloActionPerformed
 
     private void btn_ROTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ROTARActionPerformed
-        lienzo.getFigure(idActual).rotar(45);
+        lienzo.getFigure(idActual).rotar(45.0);
         lienzo.ReDibujar(caso);
     }//GEN-LAST:event_btn_ROTARActionPerformed
 
