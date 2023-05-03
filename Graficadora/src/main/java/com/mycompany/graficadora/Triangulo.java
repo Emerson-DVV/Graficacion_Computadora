@@ -2,6 +2,8 @@
 package com.mycompany.graficadora;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -107,30 +109,42 @@ public class Triangulo extends Figure {
     }
 
     @Override
-    public ArrayList<Punto> pintar(int width, int height, int escala) {
-        boolean [][] bordes = new boolean [height][width];
+    public ArrayList<Punto> pintar(int width,int height,int escala){
+        boolean [][] bordes = new boolean [width+1][height+1];
+        Set<Punto> bordesP = new HashSet<>(); // Nuevo
         ArrayList<Punto> escalaReal = dibujar();
         for (Punto punto : escalaReal) {
-            int xpixel = punto.getX() * escala;
-            if(xpixel == width) xpixel -= escala;
-            int ypixel = (height - (punto.getY() * escala))-escala;
-            if(ypixel < 0) ypixel = 0;
-            if(validos(xpixel,ypixel,width,height))bordes [xpixel][ypixel] = true;
+            int xp = punto.getX() * escala;
+            int yp = (height - (punto.getY() * escala))-escala;
+            if(validos(xp,yp,width,height)){
+                bordes [xp][yp] = true;
+            }
+            bordesP.add(new Punto(xp,yp));
         }
-        int xpixel = centro.getX() * escala;
-        if(xpixel == width) xpixel -= escala;
-        int ypixel = (height - (centro.getY() * escala))-escala;
-        if(ypixel < 0) ypixel = 0;
-        Punto cp = new Punto(0, 0);
-        if(validos(xpixel,ypixel,width,height)){
-            cp.setX(xpixel);
-            cp.setY(ypixel);
-        }
-        return alg.cuatroVecinos(bordes, escala,cp);
+        int xp = centro.getX() * escala;
+        int yp = (height - (centro.getY() * escala))-escala;
+        if(validos(xp,yp,width,height)){
+            Punto pivote = new Punto(xp,yp);
+            return alg.cuatroVecinos(bordes, escala, pivote);
+        }else{
+            boolean flag = false;
+            for (int i = 0;i < 3 && !flag;i++) {
+                int xpp = vertices.get(i).getX() * escala;
+                int ypp = (height - (vertices.get(i).getY() * escala))-escala;
+                flag = validos(xpp, ypp, width, height);
+            }
+            ArrayList<Punto> nulo = new ArrayList<>();
+            nulo.add(new Punto(-1,-1));
+            if(flag){
+                Punto pivote = alg.buscarPivote(bordesP, escala, width, height, new Punto(xp,yp));
+                if(pivote != null) return alg.cuatroVecinos(bordes, escala,pivote);
+                else return nulo;
+            }else return nulo;
+        } 
     }
 
     private boolean validos(int xpixel, int ypixel, int width, int height) {
-        return (xpixel > 0 && xpixel < width)&&(ypixel > 0 && ypixel < height);
+        return (xpixel >= 0 && xpixel <= width)&&(ypixel >= 0 && ypixel <= height);
     }
 
     @Override

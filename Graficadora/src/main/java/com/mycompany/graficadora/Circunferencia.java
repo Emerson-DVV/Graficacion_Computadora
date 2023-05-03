@@ -2,6 +2,8 @@ package com.mycompany.graficadora;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -49,25 +51,33 @@ public class Circunferencia extends Figure {
     
     @Override
     public ArrayList<Punto> pintar(int width,int height,int escala){
-        boolean [][] bordes = new boolean [height+1][width+1];
+        boolean [][] bordes = new boolean [width+1][height+1];
+        Set<Punto> bordesP = new HashSet<>(); // Nuevo
         ArrayList<Punto> escalaReal = dibujar();
         for (Punto punto : escalaReal) {
-            int xpixel = punto.getX() * escala;
-            int ypixel = (height - (punto.getY() * escala))-escala;
-            if(validos(xpixel,ypixel,width,height))bordes [xpixel][ypixel] = true;
+            int xp = punto.getX() * escala;
+            int yp = (height - (punto.getY() * escala))-escala;
+            if(validos(xp,yp,width,height)){
+                bordes [xp][yp] = true;
+            }
+            bordesP.add(new Punto(xp,yp));
         }
-        int xpixel = xc * escala;
-        int ypixel = (height - (yc * escala))-escala;
-        Punto cp = new Punto(0, 0);
-        if(validos(xpixel,ypixel,width,height)){
-            cp.setX(xpixel);
-            cp.setY(ypixel);
-        }
-        return alg.cuatroVecinos(bordes, escala,cp);
+        int xp = xc * escala;
+        int yp = (height - (yc * escala))-escala;
+        if(validos(xp,yp,width,height)){
+            Punto pivote = new Punto(xp,yp);
+            return alg.cuatroVecinos(bordes, escala, pivote);
+        }else{
+            ArrayList<Punto> nulo = new ArrayList<>();
+            nulo.add(new Punto(-1,-1));
+            Punto pivote = alg.buscarPivote(bordesP, escala, width, height, new Punto(xp,yp));
+            if(pivote != null) return alg.cuatroVecinos(bordes, escala,pivote);
+            else return nulo;
+        } 
     }
 
     private boolean validos(int xpixel, int ypixel, int width, int height) {
-        return (xpixel > 0 && xpixel < width)&&(ypixel > 0 && ypixel < height);
+        return (xpixel >= 0 && xpixel <= width)&&(ypixel >= 0 && ypixel <= height);
     }
 
     @Override
