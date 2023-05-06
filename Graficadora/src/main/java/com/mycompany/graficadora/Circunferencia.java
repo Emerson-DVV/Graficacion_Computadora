@@ -28,7 +28,7 @@ public class Circunferencia extends Figure {
         alg.BresenhamCirc(xc, yc, r, puntos);
         //grosor
         if(grosor == true){
-            puntos = alg.agregarPuntosGrosor(puntos, 1);
+            puntos = alg.agregarPuntosGrosor(this,puntos);
         }
         return puntos;
     }

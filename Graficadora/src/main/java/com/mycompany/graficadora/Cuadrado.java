@@ -45,7 +45,7 @@ public class Cuadrado extends Figure{
         algoritmos.DDA(this.v2, this.v4, puntos);
         //grosor
         if(grosor == true){
-            puntos = algoritmos.agregarPuntosGrosor(puntos, 1);
+            puntos = algoritmos.agregarPuntosGrosor(this,puntos);
         }
         return puntos;
     }

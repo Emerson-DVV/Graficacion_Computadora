@@ -40,47 +40,43 @@ public class Lienzo{
         }
         return ans;
     }
-    public void ReDibujar(int caso){
+    public void ReDibujar(){
         panel.removeAll();
         panel.paint(graficos); 
-        if(caso == 0){
-            for (Figure figura : figuras) {
-                Dibujar(figura);
-                if(figura.color != Color.WHITE){
-                    ArrayList<Punto> puntos = figura.pintar(width, height, escala);
-                    graficos.setColor(figura.color);
-                    for (Punto punto : puntos) {
-                        graficos.fillRect(punto.getX(), punto.getY(), escala, escala);
-                    }
+        for (Figure figura : figuras) {
+            Dibujar(figura);
+            if(figura.color != Color.WHITE){
+                ArrayList<Punto> puntos = figura.pintar(width, height, escala);
+                graficos.setColor(figura.color);
+                for (Punto punto : puntos) {
+                    graficos.fillRect(punto.getX(), punto.getY(), escala, escala);
                 }
-                graficarID(figura);
             }
-        }else{
-            for (Figure figura : figuras) {
-                DibujarSegmentado(figura);
-                if(figura.color != Color.WHITE){
-                    ArrayList<Punto> puntos = figura.pintar(width, height, escala);
-                    graficos.setColor(figura.color);
-                    for (Punto punto : puntos) {
-                        graficos.fillRect(punto.getX(), punto.getY(), escala, escala);
-                    }
-                }
-                graficarID(figura);
-            }
+            graficarID(figura);
         }
     }
 
     public void Dibujar(Figure f){
-        for (Punto punto : f.dibujar()) {
-            GraficarPunto(punto.getX(), punto.getY());
+        if(f.segmentado){
+            DibujarSegmentado(f);
+        }else{
+            for (Punto punto : f.dibujar()) {
+                GraficarPunto(punto.getX(), punto.getY());
+            }
         }
     }
 
-    //Corregir Segmentado, no coloca los puntos bien al agregar grosor a la linea.
     public void DibujarSegmentado(Figure f){
-        for(int i = 0; i < f.dibujar().size(); i += 3){ //Valor i cantidad de puntos que se saltara para luego dibujarlos.
-            Punto punto = f.dibujar().get(i);
-            GraficarPunto(punto.getX(), punto.getY());
+        if(f instanceof Circunferencia){
+            for(int i = 0; i < f.dibujar().size(); i += 3){
+                Punto punto = f.dibujar().get(i);
+                    GraficarPunto(punto.getX(), punto.getY());
+            }
+        }else{
+            for(int i = 0; i < f.dibujar().size(); i += 4){
+                Punto punto = f.dibujar().get(i);
+                GraficarPunto(punto.getX(), punto.getY());
+            }
         }
     }
     
@@ -102,3 +98,4 @@ public class Lienzo{
         graficos.fillRect(xpixel, ypixel, escala, escala);
     }  
 }
+

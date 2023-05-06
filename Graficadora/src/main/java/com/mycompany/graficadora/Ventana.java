@@ -10,7 +10,6 @@ public class Ventana extends javax.swing.JFrame {
      */
     private Lienzo lienzo;
     private int idActual;
-    private int caso; //Variable Switch para dibujar continuo o segementado.
     DefaultListModel<Integer> modeloLista = new DefaultListModel<>();
     private int idUltimo;
 
@@ -19,7 +18,6 @@ public class Ventana extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // Para centrar el frame
         lienzo = new Lienzo(this.jPanel1);
         idActual = 0;
-        caso = 0;
         idUltimo = 0;
         lista_Figuras.setModel(modeloLista);
     }
@@ -94,6 +92,11 @@ public class Ventana extends javax.swing.JFrame {
                 jButtonMOVERMouseClicked(evt);
             }
         });
+        jButtonMOVER.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMOVERActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonMOVER, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, -1, -1));
 
         jButtonESCALAR.setText("Escalar");
@@ -156,6 +159,15 @@ public class Ventana extends javax.swing.JFrame {
 
         jLabel4.setText("Grosor");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 520, 60, -1));
+
+        lista_Figuras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lista_FigurasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lista_Figuras);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 30, 150, 360));
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 0, 1060, 600));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Si" }));
@@ -165,15 +177,6 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 550, -1, -1));
-        lista_Figuras.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lista_FigurasMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(lista_Figuras);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 30, 150, 360));
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1060, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -183,7 +186,7 @@ public class Ventana extends javax.swing.JFrame {
         idUltimo++;
         Cuadrado c = new Cuadrado(a, idUltimo, 6);
         lienzo.aniadir(c);
-        lienzo.ReDibujar(caso);
+        lienzo.ReDibujar();
         modeloLista.addElement(c.getID()); 
         lista_Figuras.setSelectedValue(c.getID(), true);
         idActual = idUltimo;
@@ -196,7 +199,7 @@ public class Ventana extends javax.swing.JFrame {
 
     private void jButtonMOVERMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMOVERMouseClicked
         lienzo.getFigure(idActual).traslacion(5, 5);
-        lienzo.ReDibujar(caso);
+        lienzo.ReDibujar();
     }//GEN-LAST:event_jButtonMOVERMouseClicked
 
     private void jButtonESCALARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonESCALARMouseClicked
@@ -207,7 +210,7 @@ public class Ventana extends javax.swing.JFrame {
         idUltimo++;
         Circunferencia circ = new Circunferencia(idUltimo, 100, 100, 15);
         lienzo.aniadir(circ);
-        lienzo.ReDibujar(caso);
+        lienzo.ReDibujar();
         modeloLista.addElement(circ.getID());
         
         lista_Figuras.setSelectedValue(circ.getID(), true);
@@ -220,14 +223,14 @@ public class Ventana extends javax.swing.JFrame {
 
     private void jButtonESCALARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonESCALARActionPerformed
         lienzo.getFigure(idActual).escalar(1.5);
-        lienzo.ReDibujar(caso);
+        lienzo.ReDibujar();
     }//GEN-LAST:event_jButtonESCALARActionPerformed
 
     private void btn_trianguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_trianguloActionPerformed
         idUltimo++;
         Triangulo tri = new Triangulo(idUltimo, 20);
         lienzo.aniadir(tri);
-        lienzo.ReDibujar(caso);
+        lienzo.ReDibujar();
         modeloLista.addElement(tri.getID());
         
         lista_Figuras.setSelectedValue(tri.getID(), true);
@@ -236,23 +239,18 @@ public class Ventana extends javax.swing.JFrame {
 
     private void btn_ROTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ROTARActionPerformed
         lienzo.getFigure(idActual).rotar(45.0);
-        lienzo.ReDibujar(caso);
+        lienzo.ReDibujar();
     }//GEN-LAST:event_btn_ROTARActionPerformed
 
     private void bnt_dibSegmentadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_dibSegmentadoActionPerformed
-        lienzo.DibujarSegmentado(lienzo.getFigure(idActual));
-        if(caso == 0){
-            caso++;
-            lienzo.ReDibujar(caso);
-        }else{
-            caso--;
-            lienzo.ReDibujar(caso);
-        }
+        boolean seg = lienzo.getFigure(idActual).segmentado;
+        lienzo.getFigure(idActual).segmentado = !seg;
+        lienzo.ReDibujar();
     }//GEN-LAST:event_bnt_dibSegmentadoActionPerformed
 
     private void jButtonPINTARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPINTARMouseClicked
         lienzo.getFigure(idActual).color = Color.YELLOW;
-        lienzo.ReDibujar(caso);
+        lienzo.ReDibujar();
     }//GEN-LAST:event_jButtonPINTARMouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -264,7 +262,7 @@ public class Ventana extends javax.swing.JFrame {
                 lienzo.getFigure(idActual).grosor = true;
                 break;
         }
-        lienzo.ReDibujar(caso);
+        lienzo.ReDibujar();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void lista_FigurasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_FigurasMouseClicked
@@ -272,6 +270,10 @@ public class Ventana extends javax.swing.JFrame {
         int indiceElemento = lista_Figuras.locationToIndex(evt.getPoint());
         idActual = modeloLista.getElementAt(indiceElemento);
     }//GEN-LAST:event_lista_FigurasMouseClicked
+
+    private void jButtonMOVERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMOVERActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonMOVERActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
