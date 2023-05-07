@@ -155,7 +155,7 @@ public class Algoritmo {
         if(fig instanceof Circunferencia){ //para circunferencia
             if(fig.segmentado == true){ //segmentado si
                 int cont = 0;
-                boolean grosorOriginal = fig.grosor; //hardcodeo intenso
+                boolean grosorOriginal = fig.grosor;
                 fig.grosor = false;
                 int tamanioOriginal = fig.dibujar().size();
                 fig.grosor = grosorOriginal;

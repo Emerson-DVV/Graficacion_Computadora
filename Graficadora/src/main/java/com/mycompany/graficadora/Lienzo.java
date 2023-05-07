@@ -46,12 +46,17 @@ public class Lienzo{
         for (Figure figura : figuras) {
             Dibujar(figura);
             if(figura.color != Color.WHITE){
-                ArrayList<Punto> puntos = figura.pintar(width, height, escala);
+                ArrayList<Punto> pintadop;
+                if(figura.cambio){
+                    pintadop = figura.pintar(width, height, escala);
+                    figura.cambio = false;
+                }
+                else pintadop = figura.pintado;
                 graficos.setColor(figura.color);
-                for (Punto punto : puntos) {
+                for (Punto punto : pintadop) {
                     graficos.fillRect(punto.getX(), punto.getY(), escala, escala);
                 }
-            }
+            }else figura.cambio = false;
             graficarID(figura);
         }
     }
@@ -60,7 +65,12 @@ public class Lienzo{
         if(f.segmentado){
             DibujarSegmentado(f);
         }else{
-            for (Punto punto : f.dibujar()) {
+            ArrayList<Punto> list;
+            if(f.cambio){
+                list = f.dibujar();
+            }
+            else list = f.bordes;
+            for (Punto punto : list) {
                 GraficarPunto(punto.getX(), punto.getY());
             }
         }
@@ -69,11 +79,12 @@ public class Lienzo{
     public void DibujarSegmentado(Figure f){
         if(f instanceof Circunferencia){
             int cont = 0;
-            boolean grosorOriginal = f.grosor; //hardcodeo intenso
-            f.grosor = false;
             int tamanioOriginal = f.dibujar().size();
-            f.grosor = grosorOriginal;
-            ArrayList<Punto> list = f.dibujar();
+            ArrayList<Punto> list;
+            if(f.cambio){
+                list = f.dibujar();
+            }
+            else list = f.bordes;
             for(int j = 0 ; j < list.size() ; j++){
                 Punto punto = list.get(j);
                 if(cont == 40 && j < tamanioOriginal){
@@ -86,7 +97,11 @@ public class Lienzo{
             }
         }else{ //cuadrado y triangulo
             int cont = 0;
-            ArrayList<Punto> list = f.dibujar();
+            ArrayList<Punto> list;
+            if(f.cambio){
+                list = f.dibujar();
+            }
+            else list = f.bordes;
             for(int j = 0 ; j < list.size() ; j++){
                 Punto punto = list.get(j);
                     if(cont == 10){
@@ -101,8 +116,7 @@ public class Lienzo{
     }
     
     private void graficarID(Figure f){
-        Punto centro = f.getCentro();
-        
+        Punto centro = f.getCentro();        
         int xpixel = centro.getX() * escala;
         if(xpixel == width) xpixel -= escala;
         int ypixel = (height - (centro.getY() * escala))-escala;

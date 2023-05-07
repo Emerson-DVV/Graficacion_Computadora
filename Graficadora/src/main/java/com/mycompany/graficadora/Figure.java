@@ -9,11 +9,15 @@ import java.util.ArrayList;
 public abstract class Figure {
     protected int ID;
     protected Color color;
-    protected boolean grosor,segmentado;
+    protected Punto centro;
+    protected boolean cambio,grosor,segmentado;
+    protected ArrayList<Punto> bordes,pintado;
     public Figure(int ID){
         this.ID = ID;
         color = Color.WHITE;
-        grosor = segmentado = false;
+        cambio = grosor = segmentado = false;
+        bordes = new ArrayList<>();
+        pintado = new ArrayList<>();
     }
     public abstract int getID();
     public abstract Punto getCentro();

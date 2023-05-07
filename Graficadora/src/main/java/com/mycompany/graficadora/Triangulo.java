@@ -58,7 +58,7 @@ public class Triangulo extends Figure {
         if(grosor == true){
             puntos = alg.agregarPuntosGrosor(this,puntos);
         }
-        return puntos;
+        return bordes = puntos;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class Triangulo extends Figure {
         int yp = (height - (centro.getY() * escala))-escala;
         if(validos(xp,yp,width,height)){
             Punto pivote = new Punto(xp,yp);
-            return alg.cuatroVecinos(bordes, escala, pivote);
+            return pintado = alg.cuatroVecinos(bordes, escala, pivote);
         }else{
             boolean flag = false;
             for (int i = 0;i < 3 && !flag;i++) {
@@ -137,9 +137,9 @@ public class Triangulo extends Figure {
             nulo.add(new Punto(-1,-1));
             if(flag){
                 Punto pivote = alg.buscarPivote(bordesP, escala, width, height, new Punto(xp,yp));
-                if(pivote != null) return alg.cuatroVecinos(bordes, escala,pivote);
-                else return nulo;
-            }else return nulo;
+                if(pivote != null) return pintado = alg.cuatroVecinos(bordes, escala,pivote);
+                else return pintado = nulo;
+            }else return pintado = nulo;
         } 
     }
 

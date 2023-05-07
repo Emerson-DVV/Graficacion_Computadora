@@ -30,7 +30,7 @@ public class Circunferencia extends Figure {
         if(grosor == true){
             puntos = alg.agregarPuntosGrosor(this,puntos);
         }
-        return puntos;
+        return bordes = puntos;
     }
     
     @Override
@@ -66,13 +66,13 @@ public class Circunferencia extends Figure {
         int yp = (height - (yc * escala))-escala;
         if(validos(xp,yp,width,height)){
             Punto pivote = new Punto(xp,yp);
-            return alg.cuatroVecinos(bordes, escala, pivote);
+            return pintado = alg.cuatroVecinos(bordes, escala, pivote);
         }else{
             ArrayList<Punto> nulo = new ArrayList<>();
             nulo.add(new Punto(-1,-1));
             Punto pivote = alg.buscarPivote(bordesP, escala, width, height, new Punto(xp,yp));
-            if(pivote != null) return alg.cuatroVecinos(bordes, escala,pivote);
-            else return nulo;
+            if(pivote != null) return pintado = alg.cuatroVecinos(bordes, escala,pivote);
+            else return pintado = nulo;
         } 
     }
 
