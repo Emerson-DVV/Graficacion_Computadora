@@ -154,13 +154,25 @@ public class Algoritmo {
         int tamanio = puntos.size();
         if(fig instanceof Circunferencia){ //para circunferencia
             if(fig.segmentado == true){ //segmentado si
-                for(int j = 0 ; j < tamanio ; j += 3){
-                    Punto punto = puntos.get(j);
-                    for(int i = 0 ; i <= 3  ; i++){
-                        puntos.add(new Punto(punto.getX(),punto.getY() + i));
-                        puntos.add(new Punto(punto.getX(),punto.getY() - i));
-                        puntos.add(new Punto(punto.getX() - i,punto.getY()));
+                int cont = 0;
+                boolean grosorOriginal = fig.grosor; //hardcodeo intenso
+                fig.grosor = false;
+                int tamanioOriginal = fig.dibujar().size();
+                fig.grosor = grosorOriginal;
+                for(int j = 0 ; j < tamanio ; j++){
+                Punto punto = puntos.get(j);
+                    if(cont == 40 && j < tamanioOriginal){
+                        cont = 0;
+                        j += 48;
+                    }else{
+                        for(int i = 0; i < 3 ; i++){
+                            puntos.add(new Punto(punto.getX(),punto.getY() + i));
+                            puntos.add(new Punto(punto.getX(),punto.getY() - i));
+                            puntos.add(new Punto(punto.getX() + i,punto.getY()));
+                            puntos.add(new Punto(punto.getX() - i,punto.getY()));
+                        }
                     }
+                    cont++;
                 }
             }else{//segmentado no
                 for(int j = 0 ; j < tamanio ; j++){
@@ -175,13 +187,26 @@ public class Algoritmo {
             }
         }else { //para Cuadrado y Triangulo
             if(fig.segmentado == true){ //segmentado si
-                for(int j = 0 ; j < tamanio ; j += 4){
-                    Punto punto = puntos.get(j);
-                    for(int i = 0 ; i <= 3  ; i++){
-                        puntos.add(new Punto(punto.getX(),punto.getY() + i));
-                        puntos.add(new Punto(punto.getX(),punto.getY() - i));
-                        puntos.add(new Punto(punto.getX() - i,punto.getY()));
+                int cont = 0;
+                for(int j = 0 ; j < tamanio ; j++){
+                Punto punto = puntos.get(j);
+                    if(cont == 10){
+                        cont = 0;
+                        j += 5;
+                    }else{
+                        for(int i = 0; i < 3 ; i++){
+                            puntos.add(new Punto(punto.getX(),punto.getY()+i));
+                            puntos.add(new Punto(punto.getX(),punto.getY()-i));
+                            puntos.add(new Punto(punto.getX()+i,punto.getY()));
+                            puntos.add(new Punto(punto.getX()-i,punto.getY()));
+                            
+                            puntos.add(new Punto(punto.getX() + i,punto.getY() + i));
+                            puntos.add(new Punto(punto.getX() - i,punto.getY() + i));
+                            puntos.add(new Punto(punto.getX() + i,punto.getY() - i));
+                            puntos.add(new Punto(punto.getX() - i,punto.getY() - i));
+                        }
                     }
+                    cont++;
                 }
             }else{//segmentado no
                 for(int j = 0 ; j < tamanio ; j++){

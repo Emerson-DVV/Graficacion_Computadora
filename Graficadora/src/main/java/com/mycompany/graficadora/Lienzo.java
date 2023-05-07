@@ -68,14 +68,34 @@ public class Lienzo{
 
     public void DibujarSegmentado(Figure f){
         if(f instanceof Circunferencia){
-            for(int i = 0; i < f.dibujar().size(); i += 3){
-                Punto punto = f.dibujar().get(i);
+            int cont = 0;
+            boolean grosorOriginal = f.grosor; //hardcodeo intenso
+            f.grosor = false;
+            int tamanioOriginal = f.dibujar().size();
+            f.grosor = grosorOriginal;
+            ArrayList<Punto> list = f.dibujar();
+            for(int j = 0 ; j < list.size() ; j++){
+                Punto punto = list.get(j);
+                if(cont == 40 && j < tamanioOriginal){
+                    cont = 0;
+                    j += 48;
+                }else{
                     GraficarPunto(punto.getX(), punto.getY());
+                }
+                cont++;
             }
-        }else{
-            for(int i = 0; i < f.dibujar().size(); i += 4){
-                Punto punto = f.dibujar().get(i);
-                GraficarPunto(punto.getX(), punto.getY());
+        }else{ //cuadrado y triangulo
+            int cont = 0;
+            ArrayList<Punto> list = f.dibujar();
+            for(int j = 0 ; j < list.size() ; j++){
+                Punto punto = list.get(j);
+                    if(cont == 10){
+                        cont = 0;
+                        j += 5;
+                    }else{
+                        GraficarPunto(punto.getX(), punto.getY());
+                    }
+                cont++;
             }
         }
     }
